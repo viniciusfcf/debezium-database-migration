@@ -8,10 +8,31 @@ image::images/poc-architecture.jpg[architecture]
 . The data is migrated on-premises AMQ Streams (Kafka) to Azure into another AMQ Streams cluster through Mirror Maker component.
 . To acomplish the sync with Postgres a Camel application is used
 
-== Installed Operators
+== Prerequisites
 
 . AMQ Streams
 . Prometheus
 . Grafana
 
+== Setup environment
 
+=== Login into OpenShift
+```
+oc login --token=<TOKEN> --server=<SERVER>
+```
+
+===  Execute
+
+```
+./setup.sh
+```
+
+=== Oracle setup
+
+Execute commented commands: [Oracle Setup Script](./debezium-database-migration/database/oracle/orapoc-setup.sh)
+
+Example: 
+
+```
+ORACLE_DB_POD=$(oc get pod -lapp=oracle-19c-orapoc -ogo-template="{{(index .items 0).metadata.name}}")
+```
