@@ -10,9 +10,9 @@ image::images/poc-architecture.jpg[architecture]
 
 == Prerequisites
 
-. AMQ Streams
-. Prometheus
-. Grafana
+. AMQ Streams (openshift-operators namespace)
+. Prometheus (database-migration namespace)
+. Grafana (database-migration namespace)
 
 == Setup environment
 
