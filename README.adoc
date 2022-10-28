@@ -27,6 +27,17 @@ oc login --token=<TOKEN> --server=<SERVER>
 ./setup.sh
 ```
 
+=== Kafka UI
+
+```
+oc apply -f kafka/kafka-ui/kafka-ui-deployment.yaml
+```
+
+Kafka UI URL
+```
+echo "http://$(oc get routes kafka-ui -o jsonpath='{.spec.host}')"
+```
+
 === Oracle setup
 
 Execute commented commands: [Oracle Setup Script](./debezium-database-migration/database/oracle/orapoc-setup.sh)
@@ -35,4 +46,16 @@ Example:
 
 ```
 ORACLE_DB_POD=$(oc get pod -lapp=oracle-19c-orapoc -ogo-template="{{(index .items 0).metadata.name}}")
+```
+
+```
+oc exec -i $ORACLE_DB_POD -- bash -c 'sqlplus sys/$ORACLE_PWD@$ORACLE_PDB as SYSDBA' < database/oracle/database-scripts/create-ot-user.sql
+```
+
+```
+oc exec -i $ORACLE_DB_POD -- bash -c 'sqlplus ot/Orcl1234@$ORACLE_PDB' < database/oracle/database-scripts/create-ot-tables.sql
+```
+
+```
+oc exec -i $ORACLE_DB_POD -- bash -c 'sqlplus sys/$ORACLE_PWD as SYSDBA;' < database/oracle/database-scripts/setup-archivelog.sql
 ```
