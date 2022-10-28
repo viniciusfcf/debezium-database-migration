@@ -38,7 +38,7 @@ Kafka UI URL
 echo "http://$(oc get routes kafka-ui -o jsonpath='{.spec.host}')"
 ```
 
-=== Oracle setup
+=== Oracle commands
 
 Execute commented commands: [Oracle Setup Script](./debezium-database-migration/database/oracle/orapoc-setup.sh)
 
@@ -59,3 +59,18 @@ oc exec -i $ORACLE_DB_POD -- bash -c 'sqlplus ot/Orcl1234@$ORACLE_PDB' < databas
 ```
 oc exec -i $ORACLE_DB_POD -- bash -c 'sqlplus sys/$ORACLE_PWD as SYSDBA;' < database/oracle/database-scripts/setup-archivelog.sql
 ```
+
+Manual sql command:
+```
+oc exec -i $ORACLE_DB_POD -- bash -c 'sqlplus sys/$ORACLE_PWD as SYSDBA;' 
+```
+```
+
+```
+INSERT INTO ot.keys(key,value) VALUES('1234567','hodrigohamalho@gmail.com1');
+```
+
+```
+commit;
+```
+=== See messages in topics `oracle-19c-*`
