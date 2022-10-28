@@ -1,6 +1,9 @@
 # crete openshift project 
 oc new-project database-migration
 
+# If database-migration project already exists, just switch the project
+oc project database-migration
+
 # install kafka cluster 
 oc create -f kafka/kafka.yaml
 
